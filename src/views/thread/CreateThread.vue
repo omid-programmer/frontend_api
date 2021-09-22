@@ -20,11 +20,13 @@
                   label="Title"
                   name="title"
                   type="text"
+                  v-model="formData.title"
                   outlined
             ></v-text-field>
 
             <v-textarea
                 outlined
+                v-model="formData.content"
                 name="content"
                 label="content"
                 value=""
@@ -33,6 +35,10 @@
             <v-select
               label="Channel"
               outlined
+              v-model="formData.channel_id"
+              :items="channels"
+              item-text="name"
+              item-value="id"
             ></v-select>
         </v-form>
       </v-card-text>
@@ -42,6 +48,7 @@
         ripple
         color="pink"
         dark
+        @click="createThread"
         >
           Submit
         </v-btn>
@@ -54,5 +61,32 @@
 </template>
 
 <script>
-
+import {channelsListRequest} from "@/requests/Channels";
+import {createNewThreadRequest} from "@/requests/Threads";
+export default{
+  name:"CreateThread",
+  data:()=>({
+    formData:{
+      title:null,
+      content:null,
+      channel_id:null
+    },
+    channels:null
+  }),
+  methods:{
+    fetchChannelsList(){
+      channelsListRequest().then(res => {
+        this.channels = res.data
+      })
+    },
+    createThread(){
+        createNewThreadRequest(this.formData).then(res=>{
+          this.$router.push('/')
+        })
+    }
+  },
+  mounted(){
+    this.fetchChannelsList()
+  }
+}
 </script>
