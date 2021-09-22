@@ -5,27 +5,26 @@
     justify="center"
     content="center"
   >
-    <v-col
+   <v-col
     cols="12"
     md="6"
+    v-for="(thread, index) in threads" :key="index"
     >
       <v-card>
         <v-card-title>    
-            <router-link to="/thread/laravel+error" class="text-decoration-none black--text">
-              <h2>laravel error</h2>
+            <router-link :to="/thread/+thread.slug" class="text-decoration-none black--text">
+              <h2>{{thread.title}}</h2>
             </router-link>
         </v-card-title>
         <v-card-text>
           <v-row>
             <v-col>
-              <p>omid zamani</p>
+              <p>{{ thread.user.name }}</p>
             </v-col>
             <v-col>
-              <p class="text-right">2020/10/10 20:30</p>
+              <p class="text-right">{{thread.created_at}}</p>
             </v-col>
           </v-row>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem dolorum, ullam possimus accusamus sunt ducimus! Non quos sit accusamus cupiditate fuga excepturi eaque consequatur, et asperiores 
-          aliquam voluptate pariatur expedita?</p>
         </v-card-text>
       </v-card>
     </v-col>
@@ -36,7 +35,20 @@
 </template>
 
 <script>
+import {threadsListRequest} from "@/requests/Threads";
   export default {
     name: 'Home',
+    data:()=>({
+      threads:[]
+    }),
+    mounted(){
+      threadsListRequest.then(res=>{
+        this.threads=res.data.data
+      }).catch(err=>{
+        if(err.response.statusCode!==200){
+          alert('failed to load data')
+        }
+      })
+    }
   }
 </script>
