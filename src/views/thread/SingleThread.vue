@@ -23,11 +23,11 @@
               <p class="text-right">2020/10/10 20:30</p>
             </v-col>
           </v-row>
-          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti, ut tempora iure ipsa praesentium voluptate accusamus ratione deleniti, vel fugit saepe 
-            iste natus iusto nisi? Ipsum quia harum 
-            repellendus aliquam veniam fuga vero, 
-            molestias quisquam adipisci! Est quidem delectus quam quibusdam ipsa? Necessitatibus debitis 
-            magnam voluptatem quod ullam voluptas nesciunt.</p>
+          <vue-markdown>
+            # markdown
+            [Google](https://google.com)
+            :)
+          </vue-markdown>
           </v-card-text>
         </v-card>
       </v-col>
@@ -103,4 +103,11 @@
 </template>
 
 <script>
+import VueMarkdown from 'vue-markdown/src/VueMarkdown'
+export default{
+  name:"SingleThread",
+  components:{
+    'vue-markdown': VueMarkdown 
+  }
+}
 </script>
