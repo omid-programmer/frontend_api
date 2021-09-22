@@ -1,4 +1,4 @@
-import Axios, {baseUrl} from "../axios";
+import Axios, {baseURL} from "../axios";
 import axios from "axios";
 export let registerRequest=(formData)=>{
   return Axios.post(`auth/register`,formData);
@@ -7,7 +7,7 @@ export let registerRequest=(formData)=>{
 export let loginRequest = async (formData) => {
   if (!await checkAuth()) {
       let loginReq
-      await axios.get(`${baseUrl}csrf-cookie`).then(res => {
+      await axios.get(`${baseURL}csrf-cookie`).then(res => {
           loginReq = Axios.post(`auth/login`, formData)
       })
 
