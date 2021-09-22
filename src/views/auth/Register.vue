@@ -59,10 +59,29 @@
 </template>
 
 <script>
-
+import {registerRequest} from "@/requests/Auth";
 export default {
-  
-}
+  name:"Register",
+  data:()=>({
+    name:null,
+    email:null,
+    password:null
+  }),
+  methods:{
+    sendRegisterRequest() {
+      const formData = {
+        name: this.name,
+        email: this.email,
+        password: this.password
+      }
+      registerRequest(formData).then( res => {
+        this.$router.push('/login')
+      }).catch( err => {
+        console.error(err)
+      })
+    }
+  }
+} 
 </script>
 
 <style scoped>
