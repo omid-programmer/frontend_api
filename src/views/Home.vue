@@ -10,10 +10,10 @@
     md="6"
     >
       <v-card>
-        <v-card-title>
-          <a href="#" class="text-decoration-none black--text">
-            <h2>laravel error</h2>
-          </a>
+        <v-card-title>    
+            <router-link to="/thread/laravel+error" class="text-decoration-none black--text">
+              <h2>laravel error</h2>
+            </router-link>
         </v-card-title>
         <v-card-text>
           <v-row>
