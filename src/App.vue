@@ -27,14 +27,23 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
+      <router-link to="/register">
+        <v-btn
         text
       >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
+        <span class="mr-2">Register</span>
+        <v-icon>mdi-pencil</v-icon>
       </v-btn>
+      </router-link>
+
+      <router-link to="/login">
+        <v-btn
+        text
+      >
+        <span class="mr-2">login</span>
+        <v-icon>mdi-account</v-icon>
+      </v-btn>
+      </router-link>
     </v-app-bar>
 
     <v-main>
@@ -52,10 +61,5 @@ export default {
     //
   }),
 
-  mounted(){
-    Axios.get('threads').then(res=>{
-      console.log(res);
-    });
-  }
 };
 </script>
