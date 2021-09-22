@@ -27,23 +27,35 @@
 
       <v-spacer></v-spacer>
 
-      <router-link to="/register">
-        <v-btn
-        text
-      >
-        <span class="mr-2">Register</span>
-        <v-icon>mdi-pencil</v-icon>
-      </v-btn>
-      </router-link>
+      <div v-if="!isAuth">
+        <router-link to="/register">
+          <v-btn
+              text
+          >
+            <span class="mr-2">Register</span>
+            <v-icon>mdi-pencil</v-icon>
+          </v-btn>
+        </router-link>
 
-      <router-link to="/login">
+        <router-link to="/login">
+          <v-btn
+              text
+          >
+            <span class="mr-2">Login</span>
+            <v-icon>mdi-account</v-icon>
+          </v-btn>
+        </router-link>
+      </div>
+      <div v-if="isAuth">
+        {{ userData.name }}
         <v-btn
-        text
-      >
-        <span class="mr-2">login</span>
-        <v-icon>mdi-account</v-icon>
-      </v-btn>
-      </router-link>
+            light
+            class="ml-3"
+            @click="sendLogoutRequest"
+        >
+          Logout
+        </v-btn>
+      </div>
     </v-app-bar>
 
     <v-main>
@@ -68,13 +80,34 @@
 </template>
 
 <script>
-import Axios from "./axios";
+import {checkAuth, getUserDataRequest, logoutRequest} from "@/requests/Auth";
 export default {
   name: 'App',
 
   data: () => ({
-    //
+    isAuth: false,
+    userData: {
+      name: null
+    }
   }),
-
+  methods: {
+    sendLogoutRequest() {
+      logoutRequest().then(res => {
+        this.$router.push('/')
+        this.isAuth = false;
+        localStorage.setItem('isAuth', 'false');
+      })
+    }
+  },
+  mounted() {
+    checkAuth();
+    this.isAuth = localStorage.getItem('isAuth') === 'true';
+    if (this.isAuth) {
+      getUserDataRequest().then(res => {
+        this.userData = res.data[0]
+      })
+    }
+  }
 };
 </script>
+
