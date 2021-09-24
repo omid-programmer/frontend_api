@@ -24,6 +24,9 @@
           width="100"
         />
       </div>
+      <router-link to="/leaderboards">        
+            <span class="mr-2" style="color:white !important;">leaderboards</span>        
+        </router-link>
 
       <v-spacer></v-spacer>
 
@@ -36,6 +39,8 @@
             <v-icon>mdi-pencil</v-icon>
           </v-btn>
         </router-link>
+
+        
 
         <router-link to="/login">
           <v-btn
